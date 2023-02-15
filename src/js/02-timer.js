@@ -59,7 +59,6 @@ function dateCountdown() {
 
   if (timeDelta < 1000) {
     clearInterval(timerId);
-    console.log(timeDelta < 1000);
     return;
   }
   return;
