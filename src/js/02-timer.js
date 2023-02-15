@@ -24,35 +24,35 @@ const options = {
 };
 
 const dateTimePicker = flatpickr(ref.input, options);
+let timerId = null;
 
-ref.btn.addEventListener('click', conuntdownOnClick);
+ref.btn.addEventListener('click', countdownOnClick);
 
-function conuntdownOnClick(evt) {
-  if (evt.target === ref.btn) {
-    const timerCountdown = setInterval(() => {
-      const countdownArray = convertMs(dateDelta());
-      console.log(dateDelta());
-      ref.day.innerText = addLeadingZero(countdownArray.days);
-      ref.hour.innerText = addLeadingZero(countdownArray.hours);
-      ref.minute.innerText = addLeadingZero(countdownArray.minutes);
-      ref.second.innerText = addLeadingZero(countdownArray.seconds);
-    }, 1000);
-  } else if (countdownArray.seconds === 0) {
-    console.log("HELP!!!");
-    clearInterval(timerCountdown);
+function countdownOnClick(evt) {
+  if (!evt.target === ref.btn) {
+    console.log(!evt.target === ref.btn);
     return;
+  } else {
+    timerId = setInterval(dateCountdown, 1000);
   };
 };
 
-function dateDelta() {
-  if (dateTimePicker.selectedDates[0] < new Date()) {
-    return;
-  } else {
+function dateCountdown() {
     const dateSelected = new Date(dateTimePicker.selectedDates[0].getTime());
     const today = new Date().getTime();
     const timeDelta = dateSelected - today;
-    return timeDelta;
-  };
+    const countdownArray = convertMs(timeDelta);
+    ref.day.innerText = addLeadingZero(countdownArray.days);
+    ref.hour.innerText = addLeadingZero(countdownArray.hours);
+    ref.minute.innerText = addLeadingZero(countdownArray.minutes);
+  ref.second.innerText = addLeadingZero(countdownArray.seconds);
+
+  if (timeDelta < 1000) {
+    clearInterval(timerId);
+    console.log(timeDelta < 1000);
+    return;
+  }
+  return;
 };
 
 function dateValidation() {
