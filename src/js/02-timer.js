@@ -26,6 +26,15 @@ const options = {
 const dateTimePicker = flatpickr(ref.input, options);
 let timerId = null;
 
+function dateValidation() {
+  if (dateTimePicker.selectedDates[0] < new Date()) {
+    Notify.failure("Please choose a date in the future");
+    ref.btn.disabled = true;
+  } else {
+    ref.btn.disabled = false;
+  };
+};
+
 ref.btn.addEventListener('click', countdownOnClick);
 
 function countdownOnClick(evt) {
@@ -33,6 +42,7 @@ function countdownOnClick(evt) {
     console.log(!evt.target === ref.btn);
     return;
   } else {
+    ref.btn.disabled = true;
     timerId = setInterval(dateCountdown, 1000);
   };
 };
@@ -55,14 +65,7 @@ function dateCountdown() {
   return;
 };
 
-function dateValidation() {
-  if (dateTimePicker.selectedDates[0] < new Date()) {
-    Notify.failure("Please choose a date in the future");
-    ref.btn.disabled = true;
-  } else {
-    ref.btn.disabled = false;
-  };
-};
+
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -86,6 +89,5 @@ function convertMs(ms) {
 function addLeadingZero(number) {
   return number.toString().padStart(2, '0');
 }
-
 
 
