@@ -19,29 +19,27 @@ function createPromise(position, delay) {
       }
     }, delay);
   })
-    formPromise.then(() => {
-      console.log(`Fulfilled promise ${position} in ${delay}ms`);
+  formPromise.then(() => {
+    Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
+  })
+    .catch(() => {
+      Notify.failure(`Rejected promise ${position} in ${delay}ms`);
     })
-      .catch(() => {
-      console.log(`Rejected promise ${position} in ${delay}ms`);
-    })
-  console.log(formPromise);
 };
 
 function createPromiseLoop(delay, delayStep, amount) {
   for (i = 1; i <= amount; i++) {
     let promisePosition = i;
-    let promiseDelay = delay += delayStep;
-    console.log(promisePosition);
-    console.log(promiseDelay);
+    let promiseDelay = delay;
     createPromise(promisePosition, promiseDelay);
+    promiseDelay += delayStep;
   };
 };
 
 function formValidation(formDelay, formStep, formAmount) {
   let whiteSpaces = /^\S*$/;
   if (formDelay < 1 || formStep < 1 || formAmount < 1) {
-    console.log("REQUIRED: Inputs must be greater than 0!");
+    Notify.info("REQUIRED: Inputs must be greater than 0!");
   } else {
     createPromiseLoop(formDelay, formStep, formAmount);
   }
