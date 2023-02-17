@@ -1,4 +1,3 @@
-import { create } from 'basiclightbox';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const ref = {
@@ -19,10 +18,10 @@ function createPromise(position, delay) {
       }
     }, delay);
   })
-  formPromise.then(() => {
-    Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
-  })
-    .catch(() => {
+    formPromise.then(() => {
+      Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
+    })
+      .catch(() => {
       Notify.failure(`Rejected promise ${position} in ${delay}ms`);
     })
 };
@@ -30,30 +29,28 @@ function createPromise(position, delay) {
 function createPromiseLoop(delay, delayStep, amount) {
   for (i = 1; i <= amount; i++) {
     let promisePosition = i;
-    let promiseDelay = delay;
-    createPromise(promisePosition, promiseDelay);
-    promiseDelay += delayStep;
+    createPromise(promisePosition, delay);
+    delay += delayStep;
   };
 };
 
 function formValidation(formDelay, formStep, formAmount) {
-  let whiteSpaces = /^\S*$/;
   if (formDelay < 1 || formStep < 1 || formAmount < 1) {
     Notify.info("REQUIRED: Inputs must be greater than 0!");
   } else {
     createPromiseLoop(formDelay, formStep, formAmount);
   }
-}
+};
 
 function formDataParser(object) {
   let promiseFormDelay = parseInt(object.get('delay'));
   let promiseFormDelayStep = parseInt(object.get('step'));
   let promiseFormAmount = parseInt(object.get('amount'));
   formValidation(promiseFormDelay, promiseFormDelayStep, promiseFormAmount);
-}
+};
 
 function handleSubmit(e) {
   e.preventDefault();
   let formData = new FormData(ref.form);
   formDataParser(formData);
-}
+};
