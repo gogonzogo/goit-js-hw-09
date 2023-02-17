@@ -15,18 +15,18 @@ function createPromise(position, delay) {
         resolve();
       } else {
         reject();
-      }
+      };
     }, delay);
   })
-    formPromise.then(() => {
-      Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
-    })
-      .catch(() => {
+  formPromise.then(() => {
+    Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
+  })
+    .catch(() => {
       Notify.failure(`Rejected promise ${position} in ${delay}ms`);
-    })
+    });
 };
 
-function createPromiseLoop(delay, delayStep, amount) {
+function promiseCreationLoop(delay, delayStep, amount) {
   for (i = 1; i <= amount; i++) {
     let promisePosition = i;
     createPromise(promisePosition, delay);
@@ -38,8 +38,8 @@ function formValidation(formDelay, formStep, formAmount) {
   if (formDelay < 1 || formStep < 1 || formAmount < 1) {
     Notify.info("REQUIRED: Inputs must be greater than 0!");
   } else {
-    createPromiseLoop(formDelay, formStep, formAmount);
-  }
+    promiseCreationLoop(formDelay, formStep, formAmount);
+  };
 };
 
 function formDataParser(object) {
