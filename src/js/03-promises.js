@@ -36,7 +36,7 @@ function promiseCreationLoop(delay, delayStep, amount) {
 
 function formValidation(formDelay, formStep, formAmount) {
   if (formDelay < 1 || formStep < 1 || formAmount < 1) {
-    Notify.info("REQUIRED: Inputs must be greater than 0!");
+    Notify.warning("REQUIRED: Inputs must be greater than 0!");
   } else {
     promiseCreationLoop(formDelay, formStep, formAmount);
   };
