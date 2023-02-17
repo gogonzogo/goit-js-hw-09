@@ -28,8 +28,7 @@ function createPromise(position, delay) {
 
 function promiseCreationLoop(delay, delayStep, amount) {
   for (i = 1; i <= amount; i++) {
-    let promisePosition = i;
-    createPromise(promisePosition, delay);
+    createPromise(i, delay);
     delay += delayStep;
   };
 };
