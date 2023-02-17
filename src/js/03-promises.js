@@ -27,7 +27,7 @@ function createPromise(position, delay) {
 };
 
 function promiseCreationLoop(delay, delayStep, amount) {
-  for (i = 1; i <= amount; i++) {
+  for (let i = 1; i <= amount; i++) {
     createPromise(i, delay);
     delay += delayStep;
   };
