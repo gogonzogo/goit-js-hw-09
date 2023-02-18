@@ -5,6 +5,7 @@ const ref = {
 }
 
 let backgroundColorTimer = null;
+ref.stopBtn.disabled = true;
 
 ref.startBtn.addEventListener("click", handleStartBtnClick);
 
