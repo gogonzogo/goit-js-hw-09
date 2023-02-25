@@ -30,6 +30,7 @@ ref.btn.addEventListener('click', timerStartOnClick);
 
 function timerStartOnClick(evt) {
     ref.btn.disabled = true;
+    ref.input.disabled = true;
     timerId = setInterval(timerCountdown, 1000);
   };
 
@@ -43,12 +44,11 @@ function dateValidation(date) {
 };
 
 function timerCountdown() {
-    const dateSelected = new Date(dateTimePicker.selectedDates[0].getTime());
-    const today = new Date().getTime();
-    const timeDelta = dateSelected - today;
+  const dateSelected = new Date(dateTimePicker.selectedDates[0].getTime());
+  const today = new Date().getTime();
+  const timeDelta = dateSelected - today;
   const millisecondCnv = convertMs(timeDelta);
-  console.log(millisecondCnv);
-    createMarkup(millisecondCnv);
+  createMarkup(millisecondCnv);
 
   if (timeDelta < 1000) {
     clearInterval(timerId);
